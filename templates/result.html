@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kết quả gợi ý nghề nghiệp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+  <div class="wrap">
+    <a class="back-link" href="/">&larr; Nhập lại thông tin</a>
+
+    <!-- Quy trình phân tích trực quan -->
+    <div class="pipeline-steps">
+      <div class="p-step"><span class="p-step-num">1</span> Người dùng</div>
+      <div class="p-step"><span class="p-step-num">2</span> Sở thích &amp; Kỹ năng</div>
+      <div class="p-step"><span class="p-step-num">3</span> Dự đoán nhóm</div>
+      <div class="p-step active"><span class="p-step-num">4</span> Xếp hạng nghề</div>
+      <div class="p-step active"><span class="p-step-num">5</span> Khuyến nghị</div>
+      <div class="p-step"><span class="p-step-num">6</span> Đánh giá</div>
+    </div>
+
+    <!-- TẦNG 1: DỰ ĐOÁN NHÓM NGÀNH -->
+    <section class="result-hero">
+      <p class="kicker">Nhóm nghề nghiệp phù hợp với bạn</p>
+      <h1>{{ top_group }}</h1>
+      {% if graded_subject_count < 12 %}
+      <p class="provisional-note">
+        Gợi ý tham khảo ban đầu từ {{ graded_subject_count }}/12 môn đã có điểm. Kết quả có thể thay đổi khi
+        bạn bổ sung thêm điểm.
+      </p>
+      <p class="lede">Dựa trên thông tin hiện có, <strong>{{ top_group }}</strong> là nhóm nghề được gợi ý nổi bật.
+        Hãy xem đây là một nguồn tham khảo khi tìm hiểu định hướng phù hợp với bạn.</p>
+      {% else %}
+      <p class="lede">Dựa trên điểm học tập, sở thích và kỹ năng của bạn, <strong>{{ top_group }}</strong> là nhóm nghề
+        được gợi ý nổi bật.</p>
+      {% endif %}
+
+      {% if interests_selected %}
+      <p class="orientation-line">Sở thích đã chọn: {% for it in interests_selected %}<span class="tag">{{ it
+          }}</span>{% endfor %}</p>
+      {% endif %}
+      {% if skill_summary %}
+      <div class="orientation-line" style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+        <span>Kỹ năng mềm đã đánh giá:</span>
+        {% for sk in skill_summary %}
+        <span class="tag tag-alt">
+          {{ sk.label }}: <strong>{{ sk.level_label }}</strong>
+        </span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </section>
+
+    <section class="careers" aria-labelledby="next-subjects-title">
+      <h2 id="next-subjects-title">Gợi ý môn nên học tiếp</h2>
+      {% if top_group in interests_selected %}
+      <p class="careers-sub">Bạn quan tâm <strong>{{ top_group }}</strong>, nên ưu tiên các môn sau:</p>
+      {% else %}
+      <p class="careers-sub">Để khám phá thêm nhóm <strong>{{ top_group }}</strong>, bạn có thể ưu tiên các môn sau:</p>
+      {% endif %}
+      {% if next_subjects %}
+      <div class="pill-list">
+        {% for subject in next_subjects %}
+        <span class="pill-tag pill-strength">{{ subject }}</span>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="careers-sub">Bạn đã có điểm cho các môn trọng tâm hiện có trong nhóm này.</p>
+      {% endif %}
+    </section>
+
+    <!-- Danh sách nghề phù hợp -->
+    <section class="careers">
+      <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px;">
+        <h2>{{ careers|length }} nghề phù hợp nhất với bạn</h2>
+      </div>
+      {% set fill_careers = careers|selectattr('is_group_fill')|list %}
+      <p class="careers-sub">Dưới đây là <strong>Top {{ careers|length }} nghề</strong> có điểm phù hợp cao nhất trong nhóm
+        <strong>{{ top_group }}</strong>, được sắp xếp theo mức độ phù hợp với thông tin bạn đã cung cấp.
+        {% if fill_careers %}Nhóm này chỉ có {{ careers|length - fill_careers|length }} nghề nên các nghề đánh dấu
+        <em>"Bổ sung"</em> được lấy từ nhóm nghề xếp hạng kế tiếp.{% endif %}</p>
+
+      {% for c in careers %}
+      <details class="career-card" data-career-id="{{ c.career_id }}" {% if loop.first %}open{% endif %}>
+        <summary>
+          <span class="career-summary-main">
+            <span class="career-title">
+              <span
+                class="rank-badge {% if c.rank == 1 %}rank-1{% elif c.rank == 2 %}rank-2{% elif c.rank == 3 %}rank-3{% else %}rank-other{% endif %}">
+                #{{ c.rank }}
+              </span>
+              <span class="career-name">{{ c.career_name }}</span>
+              <span class="cbf-badge cf-badge">{{ c.cbf_score_pct or c.cf_score_pct }}% Phù hợp</span>
+              {% if c.is_group_fill %}<span class="tag tag-alt">Bổ sung · {{ c.career_group }}</span>{% endif %}
+              {% if c.is_popular %}<span class="career-popular">Cộng đồng đánh giá cao</span>{% endif %}
+            </span>
+            <span class="career-salary">{{ c.salary }}</span>
+          </span>
+          <span class="career-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="career-body">
+          <p class="career-desc">{{ c.description }}</p>
+          <p class="career-trend"><strong>Xu hướng thị trường:</strong> {{ c.trend }}</p>
+
+          <!-- Phân tích môn mạnh, kỹ năng mềm & môn cần cải thiện -->
+          {% if c.strengths or c.improvements or c.soft_skill_matches or c.soft_skill_improvements %}
+          <div class="fit-analysis">
+            {% if c.soft_skill_matches %}
+            <div>
+              <div class="fit-title" style="color: #0369a1;">Kỹ năng mềm phù hợp với nghề này:</div>
+              <div class="pill-list">
+                {% for sm in c.soft_skill_matches %}
+                <span class="pill-tag" style="background:#e0f2fe; color:#0369a1; border: 1px solid #bae6fd;">
+                  {{ sm.label }} (Mức: {{ sm.level_label }})
+                </span>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+
+            {% if c.soft_skill_improvements %}
+            <div>
+              <div class="fit-title" style="color: #991b1b;">Kỹ năng mềm nghề yêu cầu bạn nên rèn luyện thêm:</div>
+              <div class="pill-list">
+                {% for si in c.soft_skill_improvements %}
+                <span class="pill-tag pill-improve">
+                  {{ si.label }} (Bạn chọn mức: {{ si.level_label }})
+                </span>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+
+            {% if c.strengths %}
+            <div>
+              <div class="fit-title">Môn học thế mạnh của bạn:</div>
+              <div class="pill-list">
+                {% for s in c.strengths %}
+                <span class="pill-tag pill-strength">{{ s.subject }} ({{ s.score }}đ) — {{ s.note }}</span>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+
+            {% if c.improvements %}
+            <div>
+              <div class="fit-title">Môn trọng tâm nên cải thiện thêm:</div>
+              <div class="pill-list">
+                {% for im in c.improvements %}
+                <span class="pill-tag pill-improve">{{ im.subject }} ({{ im.score }}đ) — {{ im.note }}</span>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+      </details>
+      {% endfor %}
+
+      {% if group_remaining %}
+      <p class="careers-sub" style="margin-top: 18px;">Các nghề còn lại trong nhóm <strong>{{ top_group }}</strong>:</p>
+      {% for rc in group_remaining %}
+      <div
+        style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px dashed var(--line); flex-wrap:wrap; gap:8px;">
+        <div>
+          <span class="rank-badge rank-other">#{{ rc.rank }}</span>
+          <strong style="margin-left: 6px;">{{ rc.career_name }}</strong>
+          <span class="cbf-badge cf-badge" style="margin-left: 8px;">{{ rc.cbf_score_pct }}% Phù hợp</span>
+        </div>
+        <span style="font-size: 0.85rem; color: var(--ink-soft);">{{ rc.salary }}</span>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </section>
+
+    <!-- XEM THÊM CÁC NHÓM NGHỀ KHÁC (CŨNG XẾP HẠNG TỪ CAO XUỐNG THẤP) -->
+    {% if other_groups %}
+    <section class="careers" style="margin-top: 32px;">
+      <h2>Xem thêm các nhóm nghề khác</h2>
+      <p class="careers-sub">Bạn có thể tham khảo thêm các nghề được gợi ý trong những nhóm sau:</p>
+
+      {% for grp in other_groups %}
+      <details class="career-card" style="margin-bottom: 14px;">
+        <summary style="background: #faf8f3; font-weight: 700;">
+          <span>{{ grp.group_name }}</span>
+          <span style="font-size: 0.82rem; color: var(--teal-dark);">Xem {{ grp.careers|length }} nghề &darr;</span>
+        </summary>
+        <div class="career-body" style="padding-top: 14px;">
+          {% for oc in grp.careers %}
+          <div
+            style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px dashed var(--line); flex-wrap:wrap; gap:8px;">
+            <div>
+              <span class="rank-badge rank-other">#{{ oc.rank }}</span>
+              <strong style="margin-left: 6px;">{{ oc.career_name }}</strong>
+              <span class="cbf-badge cf-badge" style="margin-left: 8px;">{{ oc.cbf_score_pct or oc.cf_score_pct }}% Phù hợp</span>
+            </div>
+            <span style="font-size: 0.85rem; color: var(--ink-soft);">{{ oc.salary }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      </details>
+      {% endfor %}
+    </section>
+    {% endif %}
+
+    <!-- ĐIỂM PHÙ HỢP 7 NHÓM NGÀNH (THAM KHẢO) -->
+    {% if group_breakdown %}
+    <section class="breakdown">
+      <h2>Điểm phù hợp theo 7 nhóm ngành</h2>
+      <p class="careers-sub">Quy đổi từ các môn đã có điểm của bạn theo thang 0-10:</p>
+      <div class="bars">
+        {% for group, score in group_breakdown %}
+        <div class="bar-row">
+          <span class="bar-label">{{ group }}</span>
+          <div class="bar-track">
+            <div class="bar-fill" data-width="{{ (score / 10 * 100) | round(1) }}"></div>
+          </div>
+          <span class="bar-value">{{ score }}</span>
+        </div>
+        {% endfor %}
+      </div>
+      <script>
+        document.querySelectorAll(".bar-fill[data-width]").forEach(function (el) {
+          el.style.width = el.getAttribute("data-width") + "%";
+        });
+      </script>
+    </section>
+    {% endif %}
+
+    <!-- ================= EXPLICIT FEEDBACK ================= -->
+    <section class="feedback-box">
+      <h2>Đánh giá gợi ý</h2>
+      <p class="careers-sub">Ý kiến của bạn giúp chúng tôi cải thiện các gợi ý nghề nghiệp.</p>
+      <form action="/feedback" method="post">
+        <fieldset class="star-rating">
+          <legend>Mức độ hài lòng chung</legend>
+          {% for i in [5,4,3,2,1] %}
+          <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}" {% if i==5 %}checked{% endif %}>
+          <label for="star{{ i }}" title="{{ i }} sao">★</label>
+          {% endfor %}
+        </fieldset>
+
+        <div style="font-weight: 600; font-size: 0.88rem; margin-top: 10px; color: var(--ink-soft);">
+          Xác nhận nghề nào thực sự phù hợp với bạn trong Top {{ careers|length }} ở trên:
+        </div>
+        <div class="like-list">
+          {% for c in careers %}
+          <div class="like-row">
+            <div>
+              <span class="rank-badge rank-other" style="font-size:0.75rem;">#{{ c.rank }}</span>
+              <strong style="margin-left: 6px;">{{ c.career_name }}</strong>
+            </div>
+            <div style="display:flex; gap: 12px;">
+              <label class="mini-check"><input type="checkbox" name="like" value="{{ c.career_id }}"> Phù hợp</label>
+              <label class="mini-check"><input type="checkbox" name="dislike" value="{{ c.career_id }}"> Chưa phù
+                hợp</label>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <label class="field">
+          <span>Góp ý thêm (không bắt buộc)</span>
+          <textarea name="comment" rows="3" placeholder="Nhận xét của bạn về các gợi ý này..."></textarea>
+        </label>
+
+        <button type="submit" class="btn-primary">Gửi đánh giá tường minh</button>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    // Theo dõi hành vi mở xem thẻ nghề
+    document.querySelectorAll(".career-card").forEach(function (card) {
+      card.addEventListener("toggle", function () {
+        if (card.open && card.dataset.careerId) {
+          fetch("/track", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ event_type: "view_career", career_id: card.dataset.careerId }),
+          });
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

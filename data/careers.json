@@ -1,0 +1,170 @@
+{
+  "BE01": {
+    "career_id": "BE01",
+    "career_name": "Lập trình viên Backend",
+    "career_group": "Phát triển phần mềm",
+    "mo_ta": "Xây dựng và duy trì phần xử lý phía server của ứng dụng, thiết kế API, làm việc với cơ sở dữ liệu, đảm bảo hệ thống hoạt động ổn định, bảo mật và có khả năng mở rộng.",
+    "muc_luong": "Fresher: 12-18tr | Junior: 18-30tr | Senior: 35-60tr+",
+    "xu_huong_thi_truong": "Nhu cầu tuyển dụng ổn định và có xu hướng tăng, đặc biệt ở các công ty phát triển web, ứng dụng và hệ thống dữ liệu. Mức độ cạnh tranh trung bình."
+  },
+  "FE01": {
+    "career_id": "FE01",
+    "career_name": "Lập trình viên Frontend",
+    "career_group": "Phát triển Web",
+    "mo_ta": "Xây dựng giao diện người dùng cho website/ứng dụng, biến thiết kế UI/UX thành sản phẩm tương tác được, tối ưu trải nghiệm và hiệu năng hiển thị trên trình duyệt.",
+    "muc_luong": "Fresher: 10-16tr | Junior: 16-28tr | Senior: 30-55tr+",
+    "xu_huong_thi_truong": "Nhu cầu tuyển dụng ổn định, tập trung vào phát triển giao diện web và ứng dụng. Tuy nhiên, mức độ cạnh tranh khá cao do số lượng ứng viên lớn."
+  },
+  "FS01": {
+    "career_id": "FS01",
+    "career_name": "Lập trình viên Full-stack",
+    "career_group": "Phát triển Web",
+    "mo_ta": "Đảm nhiệm cả phần giao diện (frontend) lẫn phần xử lý server (backend), có khả năng xây dựng một sản phẩm hoàn chỉnh từ đầu đến cuối.",
+    "muc_luong": "Fresher: 12-18tr | Junior: 20-32tr | Senior: 35-65tr+",
+    "xu_huong_thi_truong": "Nhu cầu tuyển dụng tăng mạnh nhờ khả năng đảm nhiệm cả Frontend và Backend. Phù hợp với nhiều doanh nghiệp, đặc biệt là startup và công ty nhỏ."
+  },
+  "UD01": {
+    "career_id": "UD01",
+    "career_name": "Chuyên viên thiết kế UI/UX",
+    "career_group": "Đồ họa & Game",
+    "mo_ta": "Thiết kế giao diện và trải nghiệm người dùng cho website, ứng dụng và các sản phẩm số. Phân tích nhu cầu người dùng, xây dựng wireframe, prototype và hoàn thiện thiết kế giao diện nhằm tạo ra sản phẩm dễ sử dụng, trực quan và phù hợp với mục tiêu của người dùng.",
+    "muc_luong": "Fresher: 8–15tr | Junior: 15–25tr | Senior: 25–40tr+",
+    "xu_huong_thi_truong": "Nhu cầu tuyển dụng tăng, đặc biệt ở các công ty phát triển sản phẩm số, thương mại điện tử, fintech và startup; yêu cầu ngày càng cao về thiết kế lấy người dùng làm trung tâm."
+  },
+  "MB01": {
+    "career_id": "MB01",
+    "career_name": "Lập trình viên ứng dụng di động",
+    "career_group": "Phát triển phần mềm",
+    "mo_ta": "Phát triển ứng dụng di động chạy trên iOS/Android, tối ưu trải nghiệm người dùng trên thiết bị di động, làm việc với các API và tính năng phần cứng của điện thoại.",
+    "muc_luong": "Fresher: 10-16tr | Junior: 16-26tr | Senior: 30-50tr+",
+    "xu_huong_thi_truong": "Tăng, cạnh tranh trung bình (nhu cầu ổn định theo sự phát triển của thị trường ứng dụng di động)"
+  },
+  "DA01": {
+    "career_id": "DA01",
+    "career_name": "Chuyên viên phân tích dữ liệu / Nhà khoa học dữ liệu",
+    "career_group": "Dữ liệu & AI",
+    "mo_ta": "Thu thập, xử lý và phân tích dữ liệu để rút ra thông tin hữu ích, xây dựng báo cáo/biểu đồ trực quan, hỗ trợ ra quyết định kinh doanh dựa trên số liệu.",
+    "muc_luong": "Fresher: 8-15tr | Junior: 15-25tr | Senior: 30-60tr+",
+    "xu_huong_thi_truong": "Tăng, nhu cầu cao ở ngân hàng, tài chính, thương mại điện tử, bán lẻ, sản xuất và công nghệ; Data Analyst cạnh tranh vừa-cao, còn Data Scientist có yêu cầu chuyên môn cao hơn và hưởng lợi từ xu hướng AI/data-driven."
+  },
+  "AI01": {
+    "career_id": "AI01",
+    "career_name": "Kỹ sư Trí tuệ nhân tạo / Máy học",
+    "career_group": "Dữ liệu & AI",
+    "mo_ta": "Nghiên cứu và xây dựng các mô hình học máy/trí tuệ nhân tạo, huấn luyện mô hình từ dữ liệu, triển khai các hệ thống dự đoán hoặc tự động hóa thông minh.",
+    "muc_luong": "Fresher: 12-20tr | Junior: 16-30tr | Senior: 25-70tr+",
+    "xu_huong_thi_truong": "Tăng rất mạnh, nhu cầu cao nhưng cạnh tranh cao; doanh nghiệp ưu tiên ứng viên có khả năng đưa mô hình từ thử nghiệm vào sản phẩm và vận hành thực tế."
+  },
+  "DO01": {
+    "career_id": "DO01",
+    "career_name": "Kỹ sư vận hành và tự động hóa hệ thống",
+    "career_group": "Hạ tầng & Bảo mật",
+    "mo_ta": "Xây dựng, bảo trì hạ tầng và tự động hóa toàn bộ quy trình triển khai phần mềm, đảm bảo hệ thống vận hành liên tục, ổn định và an toàn.",
+    "muc_luong": "Fresher: 10-18tr | Junior: 18-30tr | Senior: 35-65tr+",
+    "xu_huong_thi_truong": "Nhu cầu tuyển dụng tăng cao nhờ làn sóng Cloud hóa và chuyển đổi số; dịch chuyển mạnh sang Platform Engineering (tạo nền tảng tự phục vụ cho Dev), tích hợp DevSecOps (bảo mật tự động), Self-healing pipelines và ứng dụng AI/ML (LLMOps) vào giám sát, tự vận hành hệ thống."
+  },
+  "QA01": {
+    "career_id": "QA01",
+    "career_name": "Chuyên viên kiểm thử phần mềm",
+    "career_group": "Kiểm thử & Quản lý dự án",
+    "mo_ta": "Kiểm thử và đánh giá chất lượng phần mềm trong suốt quá trình phát triển, đảm bảo sản phẩm đáp ứng tiêu chuẩn chất lượng trước khi bàn giao.",
+    "muc_luong": "Fresher: 7-10tr | Junior: 10-18tr | Middle: 15-25tr | Senior: 25-40tr+",
+    "xu_huong_thi_truong": "Dịch chuyển mạnh từ Manual sang Automation Testing & SDET; ứng dụng AI Copilot để tự động sinh test case/data và phân tích log; áp dụng Shift-Left Testing (can thiệp sớm từ khâu yêu cầu); đòi hỏi Tester có kỹ năng kỹ thuật sâu (API, SQL, Cloud) và am hiểu nghiệp vụ domain."
+  },
+  "BA01": {
+    "career_id": "BA01",
+    "career_name": "Chuyên viên phân tích nghiệp vụ",
+    "career_group": "Kiểm thử & Quản lý dự án",
+    "mo_ta": "Phân tích nhu cầu nghiệp vụ của khách hàng/doanh nghiệp, chuyển hóa thành yêu cầu kỹ thuật cụ thể, làm cầu nối giữa đội ngũ kinh doanh và đội ngũ kỹ thuật. ",
+    "muc_luong": "Intern / Fresher: 6-12tr | Junior: 12-20tr | Middle: 20-35tr | Senior: 35-55tr",
+    "xu_huong_thi_truong": "Thị trường tuyển dụng và vai trò của Business Analyst (BA) đang có sự chuyển dịch sâu sắc. Thời kỳ của một \"Note-taker BA\" (chỉ ngồi ghi chép biên bản cuộc họp và viết lại tài liệu theo lời khách hàng) đã qua. Thay vào đó, BA ngày nay được định vị là người tư vấn giải pháp chiến lược, am hiểu dữ liệu và làm chủ công nghệ."
+  },
+  "SA01": {
+    "career_id": "SA01",
+    "career_name": "Quản trị viên hệ thống",
+    "career_group": "Hạ tầng & Bảo mật",
+    "mo_ta": "Quản trị, cấu hình và bảo trì hệ thống máy chủ, mạng nội bộ và các thiết bị hạ tầng CNTT của tổ chức, đảm bảo hệ thống hoạt động an toàn, liên tục.",
+    "muc_luong": "Intern / Fresher: 6-tr | Junior: 12-tr | Middle: 18-30tr | Senior: 30-50tr",
+    "xu_huong_thi_truong": "Thị trường của nghề Quản trị viên hệ thống (System Administrator / SysAdmin) đang trải qua một cuộc \"thay máu\" lớn. Hình ảnh người làm SysAdmin truyền thống—chỉ cắm dây mạng, cài Win dạo, bấm đầu cáp hay ngồi cấu hình thủ công từng con server vật lý—đang dần bị đào thải. Thay vào đó, SysAdmin thế hệ mới đang chuyển mình thành kỹ sư vận hành hạ tầng bằng code, tự động hóa và điện toán đám mây."
+  },
+  "DG01": {
+    "career_id": "DG01",
+    "career_name": "Lập trình viên đồ họa/Game",
+    "career_group": "Đồ họa & Game",
+    "mo_ta": "Phát triển các ứng dụng đồ họa, trò chơi điện tử và sản phẩm tương tác 2D/3D. Công việc bao gồm lập trình gameplay, xử lý đồ họa, vật lý, âm thanh, tối ưu hiệu năng và tích hợp các thành phần của sản phẩm.",
+    "muc_luong": "Fresher: 8–15tr | Junior: 15–25tr | Senior: 25–40tr+",
+    "xu_huong_thi_truong": "Tăng trưởng cùng với sự phát triển của ngành game, giải trí số, thực tế ảo/thực tế tăng cường và các ứng dụng đồ họa 3D; nhu cầu cao đối với lập trình viên có khả năng sử dụng Game Engine và tối ưu hiệu năng."
+  },
+  "SE01": {
+    "career_id": "SE01",
+    "career_name": "Kỹ sư phần mềm",
+    "career_group": "Phát triển phần mềm",
+    "mo_ta": "Thiết kế, xây dựng và bảo trì các hệ thống/phần mềm nói chung (không giới hạn riêng frontend hay backend), tham gia toàn bộ vòng đời phát triển phần mềm (SDLC): phân tích yêu cầu, thiết kế kiến trúc, viết code, kiểm thử và triển khai.",
+    "muc_luong": "Fresher: 10-16tr | Junior: 16-28tr | Middle: 25-40tr | Senior: 40-65tr+",
+    "xu_huong_thi_truong": "Nhu cầu tuyển dụng luôn ở mức cao và ổn định do đây là vị trí nền tảng của ngành CNTT; mức độ cạnh tranh cao vì số lượng ứng viên đông, doanh nghiệp ngày càng ưu tiên người có tư duy hệ thống và khả năng tự học công nghệ mới."
+  },
+  "SY01": {
+    "career_id": "SY01",
+    "career_name": "Chuyên viên phân tích hệ thống",
+    "career_group": "Kiểm thử & Quản lý dự án",
+    "mo_ta": "Phân tích hệ thống thông tin hiện tại của doanh nghiệp, xác định yêu cầu kỹ thuật, thiết kế giải pháp hệ thống (sơ đồ luồng dữ liệu, ERD, kiến trúc) và phối hợp với đội phát triển để hiện thực hóa giải pháp.",
+    "muc_luong": "Fresher: 8-14tr | Junior: 14-22tr | Middle: 22-35tr | Senior: 35-50tr+",
+    "xu_huong_thi_truong": "Nhu cầu ổn định, đặc biệt tại các doanh nghiệp có hệ thống thông tin lớn (ngân hàng, bảo hiểm, sản xuất); vai trò ngày càng gắn với chuyển đổi số nên yêu cầu vừa hiểu nghiệp vụ vừa nắm được công nghệ, mức độ cạnh tranh trung bình."
+  },
+  "IT01": {
+    "career_id": "IT01",
+    "career_name": "Tư vấn viên công nghệ thông tin",
+    "career_group": "Kiểm thử & Quản lý dự án",
+    "mo_ta": "Tư vấn giải pháp công nghệ cho doanh nghiệp dựa trên nhu cầu thực tế, đánh giá hệ thống hiện có, đề xuất phương án cải tiến/chuyển đổi số, hỗ trợ lựa chọn và triển khai giải pháp phần mềm phù hợp.",
+    "muc_luong": "Junior: 12-20tr | Middle: 20-35tr | Senior: 35-60tr+",
+    "xu_huong_thi_truong": "Nhu cầu tăng theo làn sóng chuyển đổi số của doanh nghiệp Việt Nam; đòi hỏi kinh nghiệm thực tế và khả năng giao tiếp tốt nên thường phù hợp với người đã có nền tảng kỹ thuật vững, cạnh tranh cao ở cấp độ senior."
+  },
+  "CV01": {
+    "career_id": "CV01",
+    "career_name": "Kỹ sư thị giác máy tính",
+    "career_group": "Dữ liệu & AI",
+    "mo_ta": "Nghiên cứu và phát triển các hệ thống xử lý, phân tích hình ảnh/video bằng AI: nhận diện khuôn mặt, phát hiện vật thể, phân loại ảnh, ứng dụng trong an ninh, y tế, sản xuất, xe tự hành...",
+    "muc_luong": "Fresher: 12-18tr | Junior: 18-28tr | Middle: 28-45tr | Senior: 45-70tr+",
+    "xu_huong_thi_truong": "Tăng mạnh nhờ ứng dụng rộng trong an ninh - giám sát, y tế, sản xuất thông minh và xe tự hành; đây là mảng chuyên sâu của AI nên nguồn nhân lực còn khan hiếm, mức độ cạnh tranh cao nhưng cơ hội thu nhập tốt cho người có chuyên môn vững."
+  },
+  "NW01": {
+    "career_id": "NW01",
+    "career_name": "Kỹ sư/Quản trị viên mạng máy tính",
+    "career_group": "Hạ tầng & Bảo mật",
+    "mo_ta": "Thiết kế, triển khai và vận hành hệ thống mạng của doanh nghiệp (LAN/WAN/wifi), cấu hình thiết bị mạng (router, switch, firewall), đảm bảo hệ thống mạng hoạt động ổn định, thông suốt và an toàn.",
+    "muc_luong": "Fresher: 8-14tr | Junior: 14-22tr | Middle: 22-35tr | Senior: 35-55tr+",
+    "xu_huong_thi_truong": "Nhu cầu ổn định vì mọi doanh nghiệp đều cần hạ tầng mạng; xu hướng dịch chuyển sang mạng ảo hóa (SDN) và tích hợp với cloud, các chứng chỉ như CCNA/CCNP vẫn là lợi thế lớn khi tuyển dụng."
+  },
+  "SC01": {
+    "career_id": "SC01",
+    "career_name": "Chuyên viên phân tích an ninh mạng",
+    "career_group": "An toàn thông tin",
+    "mo_ta": "Giám sát, phát hiện và phân tích các sự cố/nguy cơ an ninh mạng trong hệ thống của tổ chức (thường làm việc tại Trung tâm giám sát an ninh mạng - SOC), phản ứng và xử lý sự cố bảo mật khi xảy ra.",
+    "muc_luong": "Fresher: 10-16tr | Junior: 16-25tr | Middle: 25-40tr | Senior: 40-60tr+",
+    "xu_huong_thi_truong": "Nhu cầu tăng nhanh do các tổ chức ngày càng chú trọng an ninh mạng và yêu cầu tuân thủ pháp lý về bảo mật dữ liệu; nguồn nhân lực có kinh nghiệm thực chiến còn thiếu nên mức độ cạnh tranh cho ứng viên giỏi khá thấp."
+  },
+  "PT01": {
+    "career_id": "PT01",
+    "career_name": "Chuyên viên kiểm thử xâm nhập",
+    "career_group": "An toàn thông tin",
+    "mo_ta": "Chủ động tấn công thử nghiệm (có kiểm soát) vào hệ thống, ứng dụng hoặc mạng của tổ chức nhằm phát hiện lỗ hổng bảo mật trước khi bị kẻ xấu khai thác, sau đó đưa ra báo cáo và khuyến nghị khắc phục.",
+    "muc_luong": "Junior: 15-25tr | Middle: 25-40tr | Senior: 40-70tr+",
+    "xu_huong_thi_truong": "Nhu cầu tăng mạnh cùng với yêu cầu kiểm tra bảo mật định kỳ của doanh nghiệp (đặc biệt ngân hàng, fintech); đây là vị trí đòi hỏi kỹ năng chuyên sâu và kinh nghiệm thực chiến nên nguồn cung nhân lực giỏi còn hạn chế, thu nhập khá cạnh tranh."
+  },
+  "SG01": {
+    "career_id": "SG01",
+    "career_name": "Kỹ sư an toàn thông tin",
+    "career_group": "An toàn thông tin",
+    "mo_ta": "Thiết kế, triển khai và duy trì các giải pháp bảo mật cho hệ thống của tổ chức (firewall, mã hóa, xác thực, giám sát), xây dựng chính sách an toàn thông tin và đảm bảo hệ thống tuân thủ các tiêu chuẩn bảo mật.",
+    "muc_luong": "Middle: 25-40tr | Senior: 40-65tr+",
+    "xu_huong_thi_truong": "Nhu cầu tăng ổn định khi các doanh nghiệp đầu tư nhiều hơn cho an toàn thông tin sau các sự cố rò rỉ dữ liệu; vị trí này thường yêu cầu kinh nghiệm nền tảng vững (từ SysAdmin/Network/SOC) nên phù hợp với lộ trình phát triển sau vài năm kinh nghiệm."
+  },
+  "GR01": {
+    "career_id": "GR01",
+    "career_name": "Chuyên viên thiết kế đồ họa 2D/3D",
+    "career_group": "Đồ họa & Game",
+    "mo_ta": "Thiết kế các sản phẩm đồ họa 2D/3D phục vụ truyền thông, quảng cáo, game hoặc sản phẩm số: hình ảnh, banner, nhân vật, mô hình 3D, hiệu ứng hình ảnh, đảm bảo tính thẩm mỹ và truyền tải đúng thông điệp.",
+    "muc_luong": "Fresher: 8-14tr | Junior: 14-22tr | Middle: 22-35tr | Senior: 35-50tr+",
+    "xu_huong_thi_truong": "Nhu cầu ổn định và tăng theo sự phát triển của ngành game, quảng cáo số và giải trí; mức độ cạnh tranh khá cao do có nhiều ứng viên trái ngành mỹ thuật tham gia, lợi thế thuộc về người có portfolio mạnh và kỹ năng 3D chuyên sâu."
+  }
+}

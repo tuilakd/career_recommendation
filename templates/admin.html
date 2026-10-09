@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Quản lý phản hồi & Huấn luyện lại mô hình</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="wrap" style="max-width: 980px;">
+    <header class="page-head">
+      <p class="kicker">Khu vực quản trị — Bước 7: Đánh giá & Huấn luyện lại</p>
+      <h1>Quản lý phản hồi & Huấn luyện lại</h1>
+      <p class="lede">Theo dõi phản hồi tường minh (sao, nghề phù hợp) và kích hoạt huấn luyện lại mô hình phân loại nhóm nghề (thuật toán đang triển khai) & Content-Based Filtering (CBF).</p>
+    </header>
+    <p><a class="back-link" href="/admin/logout">Đăng xuất</a> · <a class="back-link" href="/">Về trang chủ</a></p>
+
+    {% if retrain_message %}
+    <div class="alert-success">
+      {{ retrain_message }}
+    </div>
+    {% endif %}
+
+    <!-- THỐNG KÊ TỔNG QUAN -->
+    <section class="admin-stats">
+      <div class="stat-card">
+        <span class="stat-value">{{ total_feedback }}</span>
+        <span class="stat-label">Lượt đánh giá tường minh</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">{{ avg_rating if avg_rating is not none else "—" }}</span>
+        <span class="stat-label">Điểm hài lòng TB / 5 sao</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">{{ ready_count }}</span>
+        <span class="stat-label">Mẫu phản hồi sẵn sàng Retrain</span>
+      </div>
+    </section>
+
+    <!-- THỰC HIỆN HUẤN LUYỆN LẠI TỪ PHẢN HỒI TƯỜNG MINH -->
+    <section class="retrain-card">
+      <div>
+        <h2 style="margin: 0 0 6px; color: #166534;">Huấn luyện lại mô hình từ phản hồi tường minh</h2>
+        <p style="margin: 0; color: #14532d; font-size: 0.92rem;">
+          Tận dụng các mẫu phản hồi có đánh giá nghề "Phù hợp" để bổ sung vào tập dữ liệu và tái huấn luyện mô hình phân loại nhóm nghề (thuật toán đang triển khai) & Content-Based Filtering (CBF).
+        </p>
+      </div>
+      <form action="/admin/retrain" method="post">
+        <button type="submit" class="retrain-btn">Huấn luyện lại ngay</button>
+      </form>
+    </section>
+
+    <!-- DANH SÁCH ĐÁNH GIÁ TƯỜNG MINH -->
+    <section class="careers">
+      <h2>Explicit Feedback — Danh sách phản hồi tường minh</h2>
+      {% if feedback_list %}
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Thời gian</th>
+            <th>Sinh viên</th>
+            <th>Nhóm dự đoán</th>
+            <th>Sao</th>
+            <th>Nghề phù hợp (Liked)</th>
+            <th>Chưa phù hợp</th>
+            <th>Bình luận</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for f in feedback_list %}
+          <tr>
+            <td style="font-size: 0.8rem; color: var(--ink-soft);">{{ f.timestamp }}</td>
+            <td><strong>{{ f.student_name or "Sinh viên" }}</strong></td>
+            <td>{{ f.top_group }} ({{ f.top_prob }}%)</td>
+            <td><span style="color: var(--amber);">{{ "★" * f.rating }}{{ "☆" * (5 - f.rating) }}</span></td>
+            <td><strong style="color: #166534;">{{ f.liked_careers | join(", ") if f.liked_careers else "—" }}</strong></td>
+            <td><span style="color: #991b1b;">{{ f.disliked_careers | join(", ") if f.disliked_careers else "—" }}</span></td>
+            <td>{{ f.comment if f.comment else "—" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p class="careers-sub">Chưa có đánh giá nào được gửi.</p>
+      {% endif %}
+    </section>
+
+    <!-- HÀNH VI NGẦM (THAM KHẢO) -->
+    <section class="careers" style="margin-top: 30px;">
+      <h2>Thống kê lượt mở xem nghề</h2>
+      {% if views_named %}
+      <table class="admin-table">
+        <thead><tr><th>Nghề</th><th>Mã nghề</th><th>Số lượt mở xem</th></tr></thead>
+        <tbody>
+          {% for v in views_named %}
+          <tr><td>{{ v.name }}</td><td>{{ v.career_id }}</td><td>{{ v.views }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p class="careers-sub">Chưa có dữ liệu nào được ghi nhận.</p>
+      {% endif %}
+    </section>
+  </div>
+</body>
+</html>

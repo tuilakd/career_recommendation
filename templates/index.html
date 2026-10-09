@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Định hướng nghề nghiệp CNTT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="page-head">
+      <div class="head-row">
+        <div>
+          <p class="kicker">Hệ hỗ trợ ra quyết định · Sinh viên CNTT</p>
+          <h1>Định hướng nghề nghiệp</h1>
+        </div>
+        <a href="/admin_login" class="pill-link">Quản trị</a>
+      </div>
+      <p class="lede">Tải lên file bảng điểm (Excel/CSV) hoặc nhập các môn đã học, chọn thêm kỹ năng mềm
+        và lĩnh vực bạn quan tâm — hệ thống sẽ phân tích và gợi ý nhóm nghề cùng các nghề phù hợp nhất với bạn.</p>
+    </header>
+
+    <div class="steps-bar">
+      <span class="step-dot active" data-step="1">1. Bảng điểm</span>
+      <span class="step-dot" data-step="2">2. Kỹ năng</span>
+      <span class="step-dot" data-step="3">3. Sở thích</span>
+    </div>
+
+    <form class="card" action="/predict" method="post" enctype="multipart/form-data" id="predict-form">
+
+      <!-- ================= 1. BẢNG ĐIỂM ================= -->
+      <fieldset class="block" id="section-1">
+        <legend>1. Bảng điểm học phần</legend>
+        <p class="hint">Bạn có thể <strong>tải file bảng điểm Excel (.xlsx) hoặc CSV (.csv)</strong> để hệ thống tự động
+          đọc điểm, hoặc nhập thủ công các môn đã có điểm. Môn chưa học có thể để trống.</p>
+
+        <div class="tabs">
+          <label class="tab-btn">
+            <input type="radio" name="input_mode" value="file" checked>
+            <span>Tải file bảng điểm (Excel / CSV)</span>
+          </label>
+          <label class="tab-btn">
+            <input type="radio" name="input_mode" value="manual">
+            <span>Nhập điểm thủ công</span>
+          </label>
+        </div>
+
+        <div class="tab-panel" id="panel-file">
+          <div class="custom-file-box" id="drop-area">
+            <input type="file" name="score_file" id="score_file_input" accept=".csv,.xlsx" style="display:none;">
+            <div class="file-drop-inner">
+              <div class="file-drop-text">
+                <strong>Tải lên file bảng điểm</strong>
+                <span class="file-drop-sub">Chỉ hỗ trợ file Excel (.xlsx) hoặc CSV (.csv)</span>
+              </div>
+              <button type="button" class="btn-file-select" id="btn-browse-file">Chọn file từ máy...</button>
+            </div>
+          </div>
+
+          <!-- Huy hiệu hiển thị tên tệp đã chọn + nút Xóa -->
+          <div id="file-info-badge" class="file-info-badge" style="display: none;">
+            <div class="file-name-meta">
+              <span style="font-size:0.85rem; font-weight:700; color:var(--teal);">Tệp:</span>
+              <div>
+                <div id="file-name-display" class="file-name-title"></div>
+                <div id="file-size-display" class="file-name-size"></div>
+              </div>
+            </div>
+            <div class="file-badge-actions">
+              <button type="button" id="btn-clear-reset" class="btn-reset-danger" title="Bỏ file đã chọn">Xóa file</button>
+            </div>
+          </div>
+
+          <p class="hint" style="margin-top: 12px;">
+            File có thể thiếu môn chưa học; hệ thống dùng các môn nhận diện được có điểm trong khoảng 0–10.
+            Có thể tải bảng điểm dạng dọc (cột TBCHP) hoặc dạng ngang (mỗi môn một cột).
+          </p>
+
+          <details class="mini-details">
+            <summary>Xem danh sách 12 môn học hệ thống nhận diện</summary>
+            <ul class="subject-list">
+              {% for s in subjects %}<li>{{ s.label }}</li>{% endfor %}
+            </ul>
+          </details>
+        </div>
+
+        <div class="tab-panel is-hidden" id="panel-manual">
+          <div
+            style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px; flex-wrap:wrap; gap:8px;">
+            <p class="hint" style="margin:0;">Nhập điểm các môn đã học theo thang điểm 0–10; để trống môn chưa học.
+              Nếu tên môn trong chương trình của bạn khác, nhập điểm vào môn tương đương gần nhất.</p>
+            <button type="button" id="btn-manual-reset" class="btn-reset-danger"
+              style="font-size:0.78rem; padding: 4px 10px;">
+              Xóa tất cả điểm
+            </button>
+          </div>
+          <div class="grid-2">
+            {% for s in subjects %}
+            <label class="field">
+              <span>{{ s.label }}</span>
+              <input type="number" name="score_{{ s.key }}" id="input_score_{{ s.key }}" min="0" max="10" step="0.1"
+                placeholder="0 - 10 (để trống nếu chưa học)">
+            </label>
+            {% endfor %}
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- ================= 2. KỸ NĂNG ================= -->
+      <fieldset class="block" id="section-2">
+        <legend>2. Kỹ năng</legend>
+        <p class="hint">Chọn mức độ cho từng kỹ năng (Yếu, Trung bình, Tốt, Xuất sắc). Kỹ năng để
+          <strong>"Chưa đánh giá"</strong> sẽ không ảnh hưởng đến kết quả:</p>
+        <div class="skill-list-grid">
+          {% for skill in skill_options %}
+          <div class="skill-card">
+            <div class="skill-header">
+              <label for="select_skill_{{ skill.key }}" class="skill-title">{{ skill.label }}</label>
+            </div>
+            <div class="skill-select-wrapper">
+              <select name="skill_level_{{ skill.key }}" id="select_skill_{{ skill.key }}" class="skill-level-select">
+                <option value="" selected>Chưa đánh giá</option>
+                {% for lvl in skill_levels %}
+                <option value="{{ lvl.key }}">{{ lvl.label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </fieldset>
+
+      <!-- ================= 3. SỞ THÍCH ================= -->
+      <fieldset class="block" id="section-3">
+        <legend>3. Lĩnh vực bạn quan tâm</legend>
+        <p class="hint">Chọn 1 hoặc nhiều lĩnh vực bạn thấy hứng thú nhất — sở thích của bạn sẽ được
+          dùng để ưu tiên nhẹ khi xếp hạng nhóm nghề:</p>
+        <div class="checkbox-grid">
+          {% for interest in interest_options %}
+          <label class="checkbox-label">
+            <input type="checkbox" name="interests" value="{{ interest }}">
+            {{ interest }}
+          </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn-primary">Phân tích &amp; Gợi ý nghề nghiệp</button>
+    </form>
+
+    <p class="disclaimer">Kết quả là gợi ý dựa trên dữ liệu thống kê, không thay thế cho sự tìm hiểu và lựa chọn của
+      chính bạn.</p>
+  </div>
+
+  <script>
+    // Chuyển đổi giữa 2 cách nhập điểm: tải file (.xlsx/.csv) / nhập tay.
+    const modeInputs = document.querySelectorAll('input[name="input_mode"]');
+    const panelFile = document.getElementById('panel-file');
+    const panelManual = document.getElementById('panel-manual');
+    const scoreFileInput = document.getElementById('score_file_input');
+
+    function syncMode() {
+      const mode = document.querySelector('input[name="input_mode"]:checked').value;
+      panelFile.classList.toggle('is-hidden', mode !== 'file');
+      panelManual.classList.toggle('is-hidden', mode !== 'manual');
+      scoreFileInput.required = (mode === 'file');
+      panelManual.querySelectorAll('input[type="number"]').forEach(function (el) {
+        el.required = false;
+      });
+    }
+    modeInputs.forEach(function (el) { el.addEventListener('change', syncMode); });
+    syncMode();
+
+    // Tải tệp: chỉ nhận .xlsx / .csv
+    const dropArea = document.getElementById('drop-area');
+    const btnBrowseFile = document.getElementById('btn-browse-file');
+    const fileInfoBadge = document.getElementById('file-info-badge');
+    const fileNameDisplay = document.getElementById('file-name-display');
+    const fileSizeDisplay = document.getElementById('file-size-display');
+    const btnClearFile = document.getElementById('btn-clear-reset');
+    const btnManualReset = document.getElementById('btn-manual-reset');
+
+    btnBrowseFile.addEventListener('click', function (e) { e.stopPropagation(); scoreFileInput.click(); });
+    dropArea.addEventListener('click', function () { scoreFileInput.click(); });
+
+    ['dragenter', 'dragover'].forEach(function (ev) {
+      dropArea.addEventListener(ev, function (e) { e.preventDefault(); dropArea.style.borderColor = 'var(--teal)'; });
+    });
+    ['dragleave', 'drop'].forEach(function (ev) {
+      dropArea.addEventListener(ev, function (e) { e.preventDefault(); dropArea.style.borderColor = 'var(--line)'; });
+    });
+    dropArea.addEventListener('drop', function (e) {
+      const dt = e.dataTransfer;
+      if (dt.files && dt.files.length > 0) {
+        scoreFileInput.files = dt.files;
+        handleFileChange(dt.files[0]);
+      }
+    });
+
+    function clearFile() {
+      scoreFileInput.value = '';
+      fileInfoBadge.style.display = 'none';
+    }
+
+    function handleFileChange(file) {
+      if (!file) { clearFile(); return; }
+      if (!/\.(xlsx|csv)$/i.test(file.name)) {
+        alert('Chỉ hỗ trợ file Excel (.xlsx) hoặc CSV (.csv).');
+        clearFile();
+        return;
+      }
+      fileNameDisplay.innerText = file.name;
+      const sizeMb = file.size / (1024 * 1024);
+      fileSizeDisplay.innerText = '(' + (sizeMb > 0.1 ? sizeMb.toFixed(2) + ' MB' : (file.size / 1024).toFixed(0) + ' KB') + ')';
+      fileInfoBadge.style.display = 'flex';
+    }
+
+    scoreFileInput.addEventListener('change', function (e) { handleFileChange(e.target.files[0]); });
+    btnClearFile.addEventListener('click', clearFile);
+
+    // Xóa trắng các ô điểm nhập tay
+    if (btnManualReset) {
+      btnManualReset.addEventListener('click', function () {
+        panelManual.querySelectorAll('input[type="number"]').forEach(function (el) { el.value = ''; });
+      });
+    }
+
+    // Thanh bước highlight khi cuộn
+    const dots = document.querySelectorAll('.step-dot');
+    const sections = ['section-1', 'section-2', 'section-3'].map(function (id) { return document.getElementById(id); });
+    window.addEventListener('scroll', function () {
+      let current = 0;
+      sections.forEach(function (sec, i) {
+        if (sec.getBoundingClientRect().top < window.innerHeight * 0.5) current = i;
+      });
+      dots.forEach(function (d, i) { d.classList.toggle('active', i === current); });
+    });
+  </script>
+</body>
+
+</html>
